@@ -1,131 +1,265 @@
 'use client'
 
-import { useState } from 'react'
-import { ImageForm } from '@/components/image-form'
-import { ImageDisplay } from '@/components/image-display'
-import { Sparkles } from 'lucide-react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { ArrowRight, BookOpen, Zap, Users, Award } from 'lucide-react'
 
 export default function Home() {
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
-  const [generatedText, setGeneratedText] = useState<string | undefined>()
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
-  const handleImageGenerated = (url: string, text?: string) => {
-    setImageUrl(url)
-    setGeneratedText(text)
-    setError(null)
-    setIsLoading(false)
-  }
-
-  const handleSubmit = async (prompt: string) => {
-    setIsLoading(true)
-    setError(null)
-    try {
-      const response = await fetch('/api/generate-image', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt }),
-      })
-
-      if (!response.ok) {
-        const { error: errorMsg } = await response.json()
-        setError(errorMsg || 'Failed to generate image')
-        setIsLoading(false)
-        return
-      }
-
-      const { image, text } = await response.json()
-      handleImageGenerated(image, text)
-    } catch (err) {
-      const message = err instanceof Error ? err.message : 'An error occurred'
-      setError(message)
-      setIsLoading(false)
-    }
-  }
-
   return (
-    <main className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
-      <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16">
-        {/* Header */}
-        <div className="mb-12 text-center space-y-4">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="rounded-lg bg-primary/10 p-2.5">
-              <Sparkles className="h-6 w-6 text-primary" />
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
-              Image Generator
-            </h1>
-          </div>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Create stunning AI-generated images using Google&apos;s Nano Banana model
-            powered by the Vercel AI Gateway
-          </p>
+    <main className="min-h-screen bg-gradient-to-b from-cream to-cream-light">
+      {/* Navigation */}
+      <nav className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+        <div className="text-2xl font-bold text-primary-green">হর্মুলসে</div>
+        <div className="flex gap-4">
+          <Link href="/login">
+            <Button variant="ghost">লগইন</Button>
+          </Link>
+          <Link href="/register">
+            <Button className="bg-primary-green hover:bg-primary-green-light">
+              শুরু করুন
+            </Button>
+          </Link>
         </div>
+      </nav>
 
-        {/* Main Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Form Column */}
-          <div className="flex flex-col justify-start">
-            <div className="rounded-2xl border border-primary/10 bg-card/50 backdrop-blur p-6 sm:p-8">
-              <h2 className="text-xl font-semibold text-foreground mb-6">
-                Create Your Image
-              </h2>
-              <ImageForm
-                onImageGenerated={handleImageGenerated}
-                isLoading={isLoading}
-                error={error}
-              />
+      {/* Hero Section */}
+      <section className="max-w-7xl mx-auto px-6 py-16 text-center">
+        <h1 className="text-5xl md:text-6xl font-bold text-primary-green mb-6 font-bangla">
+          প্রতিটি শিক্ষার্থীর জন্য গুণমানের শিক্ষা
+        </h1>
+        <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto font-bangla">
+          AI টিউটর যা ২৪/৭ উপলব্ধ, সাশ্রয়ী এবং প্রতিটি শিক্ষার্থীর জন্য ব্যক্তিগত
+        </p>
+        <Link href="/register">
+          <Button
+            size="lg"
+            className="bg-primary-green hover:bg-primary-green-light text-white gap-2"
+          >
+            বিনামূল্যে শুরু করুন <ArrowRight size={20} />
+          </Button>
+        </Link>
+      </section>
 
-              {/* Quick Examples */}
-              <div className="mt-8 pt-6 border-t border-border/50">
-                <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide">
-                  Try these prompts
-                </p>
-                <div className="space-y-2">
-                  {[
-                    'A futuristic city with neon lights reflected in water',
-                    'A cozy medieval library filled with ancient books',
-                    'Aurora borealis over a frozen mountain landscape',
-                  ].map((example, i) => (
-                    <button
-                      key={i}
-                      onClick={() => {
-                        handleSubmit(example)
-                      }}
-                      disabled={isLoading}
-                      className="w-full text-left text-xs sm:text-sm p-2.5 rounded-lg bg-muted/50 hover:bg-muted disabled:opacity-50 transition-colors text-muted-foreground hover:text-foreground"
-                    >
-                      {example}
-                    </button>
-                  ))}
-                </div>
-              </div>
+      {/* Features Grid */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <h2 className="text-4xl font-bold text-center text-primary-green mb-12 font-bangla">
+          কেন হর্মুলসে?
+        </h2>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="p-6 border-0 bg-white hover:shadow-lg transition-shadow">
+            <Zap className="w-12 h-12 text-gold mb-4" />
+            <h3 className="text-xl font-bold text-primary-green mb-2 font-bangla">
+              দ্রুত সমাধান
+            </h3>
+            <p className="text-gray-600 font-bangla">
+              সেকেন্ডের মধ্যে যেকোনো প্রশ্নের উত্তর পান
+            </p>
+          </Card>
+
+          <Card className="p-6 border-0 bg-white hover:shadow-lg transition-shadow">
+            <BookOpen className="w-12 h-12 text-gold mb-4" />
+            <h3 className="text-xl font-bold text-primary-green mb-2 font-bangla">
+              NCTB সংযুক্ত
+            </h3>
+            <p className="text-gray-600 font-bangla">
+              বাংলাদেশের পাঠ্যক্রম অনুযায়ী শিক্ষা
+            </p>
+          </Card>
+
+          <Card className="p-6 border-0 bg-white hover:shadow-lg transition-shadow">
+            <Award className="w-12 h-12 text-gold mb-4" />
+            <h3 className="text-xl font-bold text-primary-green mb-2 font-bangla">
+              পরীক্ষায় প্রস্তুত
+            </h3>
+            <p className="text-gray-600 font-bangla">
+              সকল বোর্ড পরীক্ষার জন্য প্রস্তুত হন
+            </p>
+          </Card>
+
+          <Card className="p-6 border-0 bg-white hover:shadow-lg transition-shadow">
+            <Users className="w-12 h-12 text-gold mb-4" />
+            <h3 className="text-xl font-bold text-primary-green mb-2 font-bangla">
+              অনলাইন টিউটিং
+            </h3>
+            <p className="text-gray-600 font-bangla">
+              যেকোনো সময়, যেকোনো জায়গা থেকে শিখুন
+            </p>
+          </Card>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <h2 className="text-4xl font-bold text-center text-primary-green mb-12 font-bangla">
+          সাশ্রয়ী মূল্যে প্রিমিয়াম শিক্ষা
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {/* Free Tier */}
+          <Card className="p-8 border-2 border-primary-green bg-white">
+            <h3 className="text-2xl font-bold text-primary-green mb-4 font-bangla">
+              বিনামূল্যে
+            </h3>
+            <div className="text-4xl font-bold text-primary-green mb-6">
+              ৳<span className="text-3xl">0</span>
+            </div>
+            <ul className="space-y-3 mb-8 font-bangla">
+              <li className="flex items-center gap-2">
+                <span className="text-gold">✓</span>
+                দৈনিক ১৫টি চ্যাট
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-gold">✓</span>
+                ছবি বিশ্লেষণ (৩/দিন)
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-gold">✓</span>
+                দ্রুত AI টিউটর
+              </li>
+            </ul>
+            <Link href="/register">
+              <Button className="w-full bg-primary-green hover:bg-primary-green-light">
+                শুরু করুন
+              </Button>
+            </Link>
+          </Card>
+
+          {/* Pro Tier */}
+          <Card className="p-8 border-2 border-gold bg-gradient-to-b from-cream to-white shadow-lg">
+            <div className="bg-gold text-primary-green px-3 py-1 rounded w-fit mb-4 font-bold font-bangla">
+              জনপ্রিয়
+            </div>
+            <h3 className="text-2xl font-bold text-primary-green mb-4 font-bangla">
+              প্রো
+            </h3>
+            <div className="text-4xl font-bold text-primary-green mb-6">
+              ৳<span className="text-3xl">129</span>
+              <span className="text-lg font-normal text-gray-600">/মাস</span>
+            </div>
+            <ul className="space-y-3 mb-8 font-bangla">
+              <li className="flex items-center gap-2">
+                <span className="text-gold">✓</span>
+                সীমাহীন চ্যাট
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-gold">✓</span>
+                প্রিমিয়াম Gemini টিউটর
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-gold">✓</span>
+                ছবি বিশ্লেষণ (২০/দিন)
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-gold">✓</span>
+                মক টেস্ট
+              </li>
+            </ul>
+            <Link href="/register">
+              <Button className="w-full bg-gold text-primary-green hover:bg-gold-light">
+                এখনই আপগ্রেড করুন
+              </Button>
+            </Link>
+          </Card>
+
+          {/* Family Tier */}
+          <Card className="p-8 border-2 border-primary-green bg-white">
+            <h3 className="text-2xl font-bold text-primary-green mb-4 font-bangla">
+              পরিবার
+            </h3>
+            <div className="text-4xl font-bold text-primary-green mb-6">
+              ৳<span className="text-3xl">249</span>
+              <span className="text-lg font-normal text-gray-600">/মাস</span>
+            </div>
+            <ul className="space-y-3 mb-8 font-bangla">
+              <li className="flex items-center gap-2">
+                <span className="text-gold">✓</span>
+                প্রো সব বৈশিষ্ট্য
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-gold">✓</span>
+                ৪টি প্রোফাইল পর্যন্ত
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-gold">✓</span>
+                অভিভাবক ড্যাশবোর্ড
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-gold">✓</span>
+                AI ছবি ৫০/দিন
+              </li>
+            </ul>
+            <Link href="/register">
+              <Button className="w-full bg-primary-green hover:bg-primary-green-light">
+                পরিবার প্যাকেজ বেছে নিন
+              </Button>
+            </Link>
+          </Card>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-primary-green text-white py-12 mt-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h4 className="text-xl font-bold mb-4 font-bangla">হর্মুলসে</h4>
+              <p className="text-cream font-bangla">
+                শিক্ষা AI প্ল্যাটফর্ম যা প্রতিটি শিক্ষার্থীকে সফল করতে প্রতিশ্রুতিবদ্ধ
+              </p>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4 font-bangla">পণ্য</h4>
+              <ul className="space-y-2 font-bangla">
+                <li>
+                  <Link href="#" className="hover:text-gold">
+                    AI টিউটর
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-gold">
+                    মক টেস্ট
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4 font-bangla">কোম্পানি</h4>
+              <ul className="space-y-2 font-bangla">
+                <li>
+                  <Link href="/about" className="hover:text-gold">
+                    আমাদের সম্পর্কে
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-gold">
+                    যোগাযোগ
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4 font-bangla">আইনি</h4>
+              <ul className="space-y-2 font-bangla">
+                <li>
+                  <Link href="#" className="hover:text-gold">
+                    গোপনীয়তা নীতি
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-gold">
+                    শর্তাবলী
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
-
-          {/* Image Display Column */}
-          <div className="flex flex-col justify-start">
-            <div className="rounded-2xl border border-primary/10 bg-card/50 backdrop-blur p-6 sm:p-8">
-              <h2 className="text-xl font-semibold text-foreground mb-6">
-                Your Creation
-              </h2>
-              <ImageDisplay imageUrl={imageUrl} text={generatedText} />
-            </div>
+          <div className="border-t border-primary-green-light pt-8 text-center font-bangla text-cream">
+            <p>© ২০২৬ হর্মুলসে শিক্ষা AI। সর্বস্বত্ব সংরক্ষিত।</p>
           </div>
         </div>
-
-        {/* Footer Info */}
-        <div className="mt-12 rounded-xl border border-border/30 bg-muted/30 p-6 max-w-2xl mx-auto">
-          <p className="text-sm text-muted-foreground text-center">
-            Powered by{' '}
-            <span className="font-semibold text-foreground">
-              Google Gemini 3.1 Flash (Nano Banana)
-            </span>{' '}
-            via the Vercel AI Gateway. Each image takes a few seconds to generate.
-          </p>
-        </div>
-      </div>
+      </footer>
     </main>
   )
 }

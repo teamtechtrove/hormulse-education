@@ -1,42 +1,34 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Noto_Sans_Bengali, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { Toaster } from 'sonner'
+
+const bangla = Noto_Sans_Bengali({ subsets: ['bengali'] })
+const inter = Inter({ subsets: ['latin'] })
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
-  ],
+  themeColor: '#1B5E20',
 }
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
-  title: 'Image Generator - AI Playground',
-  description: 'Create stunning AI-generated images using Google\'s Nano Banana model powered by Vercel AI Gateway',
-  generator: 'v0.app',
+  title: 'Hormulse Education AI',
+  description: 'Quality, affordable, and accessible AI tutoring for every student in Bangladesh',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+  },
   icons: {
     icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
+      { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
-    apple: '/apple-icon.png',
+    apple: '/apple-icon-180x180.png',
   },
 }
 
@@ -46,9 +38,21 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-background">
-      <body className="font-sans antialiased">
+    <html lang="bn" className="bg-cream text-foreground">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <style>
+          {`
+            :root {
+              --font-bangla: ${bangla.style.fontFamily};
+              --font-sans: ${inter.style.fontFamily};
+            }
+          `}
+        </style>
+      </head>
+      <body className={`${inter.className} antialiased`}>
         {children}
+        <Toaster />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

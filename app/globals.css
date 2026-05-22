@@ -4,79 +4,48 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.98 0.001 0);
-  --foreground: oklch(0.15 0.04 280);
-  --card: oklch(0.99 0.002 0);
-  --card-foreground: oklch(0.15 0.04 280);
-  --popover: oklch(0.99 0.002 0);
-  --popover-foreground: oklch(0.15 0.04 280);
-  --primary: oklch(0.55 0.18 250);
-  --primary-foreground: oklch(0.98 0.001 0);
-  --secondary: oklch(0.75 0.12 240);
-  --secondary-foreground: oklch(0.15 0.04 280);
-  --muted: oklch(0.92 0.008 0);
-  --muted-foreground: oklch(0.5 0.08 240);
-  --accent: oklch(0.65 0.2 260);
-  --accent-foreground: oklch(0.98 0.001 0);
-  --destructive: oklch(0.58 0.24 27);
-  --destructive-foreground: oklch(0.98 0.001 0);
-  --border: oklch(0.9 0.01 0);
-  --input: oklch(0.92 0.008 0);
-  --ring: oklch(0.55 0.18 250);
-  --chart-1: oklch(0.55 0.18 250);
-  --chart-2: oklch(0.65 0.2 260);
-  --chart-3: oklch(0.75 0.12 240);
-  --chart-4: oklch(0.58 0.24 27);
-  --chart-5: oklch(0.68 0.15 280);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.98 0.001 0);
-  --sidebar-foreground: oklch(0.15 0.04 280);
-  --sidebar-primary: oklch(0.55 0.18 250);
-  --sidebar-primary-foreground: oklch(0.98 0.001 0);
-  --sidebar-accent: oklch(0.65 0.2 260);
-  --sidebar-accent-foreground: oklch(0.98 0.001 0);
-  --sidebar-border: oklch(0.9 0.01 0);
-  --sidebar-ring: oklch(0.55 0.18 250);
-}
+  /* Hormulse Colors */
+  --primary-green: #1B5E20;
+  --primary-green-light: #2E7D32;
+  --primary-green-lighter: #4CAF50;
+  --gold: #FFD700;
+  --gold-light: #FFC107;
+  --cream: #FFF8E1;
+  --cream-light: #FFECB3;
+  --deep-green: #0D3328;
+  --text-dark: #1A1A1A;
+  --text-light: #FFFFFF;
 
-.dark {
-  --background: oklch(0.1 0.01 280);
-  --foreground: oklch(0.95 0.01 0);
-  --card: oklch(0.15 0.02 280);
-  --card-foreground: oklch(0.95 0.01 0);
-  --popover: oklch(0.15 0.02 280);
-  --popover-foreground: oklch(0.95 0.01 0);
-  --primary: oklch(0.68 0.2 260);
-  --primary-foreground: oklch(0.1 0.01 280);
-  --secondary: oklch(0.35 0.12 240);
-  --secondary-foreground: oklch(0.95 0.01 0);
-  --muted: oklch(0.25 0.05 280);
-  --muted-foreground: oklch(0.65 0.08 240);
-  --accent: oklch(0.75 0.18 250);
-  --accent-foreground: oklch(0.1 0.01 280);
-  --destructive: oklch(0.65 0.2 27);
-  --destructive-foreground: oklch(0.95 0.01 0);
-  --border: oklch(0.25 0.04 280);
-  --input: oklch(0.25 0.04 280);
-  --ring: oklch(0.68 0.2 260);
-  --chart-1: oklch(0.68 0.2 260);
-  --chart-2: oklch(0.75 0.18 250);
-  --chart-3: oklch(0.65 0.15 240);
-  --chart-4: oklch(0.65 0.2 27);
-  --chart-5: oklch(0.72 0.18 280);
-  --sidebar: oklch(0.15 0.02 280);
-  --sidebar-foreground: oklch(0.95 0.01 0);
-  --sidebar-primary: oklch(0.68 0.2 260);
-  --sidebar-primary-foreground: oklch(0.1 0.01 280);
-  --sidebar-accent: oklch(0.75 0.18 250);
-  --sidebar-accent-foreground: oklch(0.1 0.01 280);
-  --sidebar-border: oklch(0.25 0.04 280);
-  --sidebar-ring: oklch(0.68 0.2 260);
+  --background: #FFF8E1;
+  --foreground: #1A1A1A;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A1A;
+  --primary: #1B5E20;
+  --primary-foreground: #FFFFFF;
+  --secondary: #FFD700;
+  --secondary-foreground: #1A1A1A;
+  --muted: #CCCCCC;
+  --muted-foreground: #666666;
+  --accent: #2E7D32;
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: #E5E5E5;
+  --input: #F3F3F3;
+  --ring: #1B5E20;
+  --chart-1: #1B5E20;
+  --chart-2: #2E7D32;
+  --chart-3: #4CAF50;
+  --chart-4: #FFD700;
+  --chart-5: #FFC107;
+  --radius: 0.625rem;
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: var(--font-sans);
+  --font-bangla: var(--font-bangla);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -105,14 +74,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 @layer base {
@@ -121,5 +82,8 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  .font-bangla {
+    font-family: var(--font-bangla);
   }
 }
